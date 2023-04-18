@@ -7,7 +7,7 @@ public class TempConversion {
         return targetScale;
     }
 
-    public String startingScale,targetScale;
+    private String startingScale,targetScale;
     public int getInitialScaleInt() {
         return initialScaleInt;
     }
@@ -76,8 +76,8 @@ public class TempConversion {
                 [3]Kelvin
                 [9]Exit
                 """;
-    public int initialScaleInt, targetScaleInt;
-    double initialTemp, convertedTemp;
+    private int initialScaleInt, targetScaleInt;
+    private double initialTemp, convertedTemp;
 
     public String getMainMenu() {
         return mainMenu;

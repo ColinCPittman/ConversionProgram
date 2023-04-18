@@ -49,10 +49,10 @@ public class Main {
             if (choice == 9) {break;}
             double initialValue = getDoubleAny("Please enter amount: ");
             if (choice == 1) {
-                System.out.printf("%.4f EUR is equal to %.4f USD",initialValue,cc1.convert(choice,initialValue));
+                System.out.printf("%.4f EUR is equal to %.4f USD at the exchange rate of %.4f",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_EUR2USD());
             }
             else {
-                System.out.printf("%.4f USD is equal to %.4f EUR",initialValue,cc1.convert(choice,initialValue));
+                System.out.printf("%.4f USD is equal to %.4f EUR at the exchange rate of %.4f",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_USD2EUR());
             }
         }while (userStays());
     }
