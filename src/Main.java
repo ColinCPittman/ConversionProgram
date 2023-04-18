@@ -9,52 +9,13 @@ public class Main {
             menuChoice = getMenuChoice(1, 3, 9, "Choose a conversion type [9 to exit]: ");
             switch (menuChoice) {
                 case 1:
-                    do {
-                        TempConversion tc1 = new TempConversion();
-                        System.out.print(tc1.getMainMenu());
-                        tc1.setInitialScale(getMenuChoice(1, 3, 9, "Starting temperature scale [9 to exit]: "));
-                        if (tc1.getInitialScaleInt() == 9) {
-                            break;
-                        } else {
-                            System.out.print(tc1.getMenuAfterChoice(tc1.getInitialScaleInt()));
-                            tc1.setTargetScale(getMenuChoice(1, 3, 9, "Converting from " + tc1.getStartingScale() + " into: ", tc1.getInitialScaleInt()));
-                            if (tc1.getTargetScaleInt() == 9) {
-                                break;
-                            }
-                            tc1.setInitialTemp(getDoubleAny("Enter starting temperature: "));
-                            System.out.printf("%.2f degrees " + tc1.getStartingScale() + " is equal to %.2f degrees " + tc1.getTargetScale() + ".", tc1.getInitialTemp(), tc1.convertTemperature(tc1.getInitialScaleInt(), tc1.getTargetScaleInt(), tc1.getInitialTemp()));
-                        }
-                    } while (userStays());
+                    handleCaseTempConversion();
                     break;
                 case 2:
-                    do {
-                        CurrencyConversion cc1 = new CurrencyConversion();
-                        System.out.println(cc1.getMenu());
-                        int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
-                        if (choice == 9) {break;}
-                        double initialValue = getDoubleAny("Please enter amount: ");
-                        if (choice == 1) {
-                            System.out.printf("%.4f EUR is equal to %.4f USD",initialValue,cc1.convert(choice,initialValue));
-                        }
-                        else {
-                            System.out.printf("%.4f USD is equal to %.4f EUR",initialValue,cc1.convert(choice,initialValue));
-                        }
-                    }while (userStays());
+                    handleCaseCurrConversion();
                     break;
                 case 3:
-                    do{
-                        WeightConversion wc1 = new WeightConversion();
-                        System.out.println(wc1.getMenu());
-                        int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
-                        if (choice == 9) {break;}
-                        double initialValue = getDoubleAny("Please enter amount: ");
-                        if (choice == 1) {
-                            System.out.printf("%.2f kilograms is equal to %.2f pounds.",initialValue,wc1.convert(choice,initialValue));
-                        }
-                        else {
-                            System.out.printf("%.2f pounds is equal to %.2f kilograms.",initialValue,wc1.convert(choice,initialValue));
-                        }
-                    }while(userStays());
+                    handleCaseWeightConversion();
                     break;
                 case 9:
                     stayInMenu = false;
@@ -62,6 +23,57 @@ public class Main {
             }
         } while (stayInMenu);
         System.out.println("Shutting down...");
+    }
+
+    public static void handleCaseWeightConversion() {
+        do{
+            WeightConversion wc1 = new WeightConversion();
+            System.out.println(wc1.getMenu());
+            int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
+            if (choice == 9) {break;}
+            double initialValue = getDoubleAny("Please enter amount: ");
+            if (choice == 1) {
+                System.out.printf("%.2f kilograms is equal to %.2f pounds.",initialValue,wc1.convert(choice,initialValue));
+            }
+            else {
+                System.out.printf("%.2f pounds is equal to %.2f kilograms.",initialValue,wc1.convert(choice,initialValue));
+            }
+        }while(userStays());
+    }
+
+    public static void handleCaseCurrConversion() {
+        do {
+            CurrencyConversion cc1 = new CurrencyConversion();
+            System.out.println(cc1.getMenu());
+            int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
+            if (choice == 9) {break;}
+            double initialValue = getDoubleAny("Please enter amount: ");
+            if (choice == 1) {
+                System.out.printf("%.4f EUR is equal to %.4f USD",initialValue,cc1.convert(choice,initialValue));
+            }
+            else {
+                System.out.printf("%.4f USD is equal to %.4f EUR",initialValue,cc1.convert(choice,initialValue));
+            }
+        }while (userStays());
+    }
+
+    public static void handleCaseTempConversion() {
+        do {
+            TempConversion tc1 = new TempConversion();
+            System.out.print(tc1.getMainMenu());
+            tc1.setInitialScale(getMenuChoice(1, 3, 9, "Starting temperature scale [9 to exit]: "));
+            if (tc1.getInitialScaleInt() == 9) {
+                break;
+            } else {
+                System.out.print(tc1.getMenuAfterChoice(tc1.getInitialScaleInt()));
+                tc1.setTargetScale(getMenuChoice(1, 3, 9, "Converting from " + tc1.getStartingScale() + " into: ", tc1.getInitialScaleInt()));
+                if (tc1.getTargetScaleInt() == 9) {
+                    break;
+                }
+                tc1.setInitialTemp(getDoubleAny("Enter starting temperature: "));
+                System.out.printf("%.2f degrees " + tc1.getStartingScale() + " is equal to %.2f degrees " + tc1.getTargetScale() + ".", tc1.getInitialTemp(), tc1.convertTemperature(tc1.getInitialScaleInt(), tc1.getTargetScaleInt(), tc1.getInitialTemp()));
+            }
+        } while (userStays());
     }
 
     public static boolean userStays() {
