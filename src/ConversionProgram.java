@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class ConversionProgram {
     public static void main(String[] args) {
         boolean stayInMenu = true;
         int menuChoice;
@@ -49,10 +49,10 @@ public class Main {
             if (choice == 9) {break;}
             double initialValue = getDoubleAny("Please enter amount: ");
             if (choice == 1) {
-                System.out.printf("%.4f EUR is equal to %.4f USD at the exchange rate of %.4f",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_EUR2USD());
+                System.out.printf("%.4f EUR is equal to %.4f USD at the exchange rate of %.4f.",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_EUR2USD());
             }
             else {
-                System.out.printf("%.4f USD is equal to %.4f EUR at the exchange rate of %.4f",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_USD2EUR());
+                System.out.printf("%.4f USD is equal to %.4f EUR at the exchange rate of %.4f.",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_USD2EUR());
             }
         }while (userStays());
     }
@@ -70,7 +70,7 @@ public class Main {
                 if (tc1.getTargetScaleInt() == 9) {
                     break;
                 }
-                tc1.setInitialTemp(getDoubleAny("Enter starting temperature: "));
+                tc1.setInitialTemp(getDoubleAny("Enter starting temperature[" + tc1.getStartingScale() + "]: "));
                 System.out.printf("%.2f degrees " + tc1.getStartingScale() + " is equal to %.2f degrees " + tc1.getTargetScale() + ".", tc1.getInitialTemp(), tc1.convertTemperature(tc1.getInitialScaleInt(), tc1.getTargetScaleInt(), tc1.getInitialTemp()));
             }
         } while (userStays());

@@ -1,4 +1,29 @@
 public class CurrencyConversion {
+    private double convertedAmount;
+    private String startingCurrency, targetCurrency;
+    private int choice;
+    private double startAmount;
+    private final double EXCHANGE_RATE_EUR2USD = 1.0978, EXCHANGE_RATE_USD2EUR = 0.9100;
+
+    public String getStartingCurrency() {
+        return startingCurrency;
+    }
+
+    public String getTargetCurrency() {
+        return targetCurrency;
+    }
+
+    public CurrencyConversion () {
+        choice = 0;
+        startAmount = 0.0;
+        convertedAmount = 0.0;
+
+    }
+    public CurrencyConversion(int choice, double startAmount) {
+        this.choice = choice;
+        this.startAmount = startAmount;
+        this.convertedAmount = convertStored();
+    }
     public double getEXCHANGE_RATE_EUR2USD() {
         return EXCHANGE_RATE_EUR2USD;
     }
@@ -6,7 +31,36 @@ public class CurrencyConversion {
         return EXCHANGE_RATE_USD2EUR;
     }
 
-    private final double EXCHANGE_RATE_EUR2USD = 1.0978, EXCHANGE_RATE_USD2EUR = 0.9100;
+    public double getStartAmount() {
+        return startAmount;
+    }
+
+    public void setStartAmount(double startAmount) {
+        this.startAmount = startAmount;
+    }
+
+    public int getChoice() {
+        return choice;
+    }
+
+    public void setChoice(int choice) {
+        this.choice = choice;
+        switch(choice) {
+            case 1:
+                this.startingCurrency = "EUR";
+                this.targetCurrency = "USD";
+                break;
+            case 2:
+                this.startingCurrency = "USD";
+                this.targetCurrency = "EUR";
+                break;
+        }
+    }
+
+    public double getConvertedAmount() {
+        return convertedAmount;
+    }
+
     public String getMenu(){
         return """
                 
@@ -19,12 +73,25 @@ public class CurrencyConversion {
     }
     public double convert(int choice, double money) {//to be called with validated choice 1 or 2
         double result;
+        setChoice(choice);
         if(choice == 1) { //chose to convert from EUR to USD
             result = money * getEXCHANGE_RATE_EUR2USD();
         }
         else { //USD to EUR
             result = money * getEXCHANGE_RATE_USD2EUR();
         }
+        this.convertedAmount =result;
+        return result;
+    }
+    public double convertStored() {
+        double result;
+        if(getChoice() == 1) { //chose to convert from EUR to USD
+            result = getStartAmount() * getEXCHANGE_RATE_EUR2USD();
+        }
+        else { //USD to EUR
+            result = getStartAmount() * getEXCHANGE_RATE_USD2EUR();
+        }
+        this.convertedAmount =result;
         return result;
     }
 

@@ -1,4 +1,17 @@
 public class TempConversion {
+    public TempConversion() {
+        this.initialTemp = 0.0;
+        this.targetScaleInt = 0;
+        this.initialScaleInt = 0;
+        this.targetScale = null;
+        this.startingScale = null;
+        this.convertedTemp = 0.0;
+    }
+    public TempConversion(int initialScaleInt, int targetScaleInt, double initialTemp) {
+        setInitialScale(initialScaleInt);
+        setTargetScale(targetScaleInt);
+        this.initialTemp = initialTemp;
+    }
     public String getStartingScale() {
         return startingScale;
     }
