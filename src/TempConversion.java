@@ -1,4 +1,7 @@
 public class TempConversion {
+    private int initialScaleInt, targetScaleInt;
+    private double initialTemp, convertedTemp;
+    private String startingScale,targetScale;
     public TempConversion() {
         this.initialTemp = 0.0;
         this.targetScaleInt = 0;
@@ -11,6 +14,12 @@ public class TempConversion {
         setInitialScale(initialScaleInt);
         setTargetScale(targetScaleInt);
         this.initialTemp = initialTemp;
+        convertedTemp = convertStored();
+    }
+    public String toString() {
+        return "The starting scale int is " + initialScaleInt + " which corresponds to " + startingScale
+                + " and the target conversion scale int is " + targetScaleInt + " which corresponds to " + targetScale
+                + ". The initial temperature is set to " + initialTemp + " and the stored conversion is " + convertedTemp;
     }
     public String getStartingScale() {
         return startingScale;
@@ -19,27 +28,57 @@ public class TempConversion {
     public String getTargetScale() {
         return targetScale;
     }
-
-    private String startingScale,targetScale;
     public int getInitialScaleInt() {
         return initialScaleInt;
     }
 
     public void setInitialScale(int initialScaleInt) {
-
+        this.initialScaleInt = initialScaleInt;
         switch(initialScaleInt) {
-            case 1:
+            case 1 -> startingScale = "Celsius";
+            case 2 -> startingScale = "Fahrenheit";
+            case 3 -> startingScale = "Kelvin";
+            default -> {}
+        }
+    }
+    public void setInitialScale(String initialScale) {
+        switch(initialScale.toLowerCase()) {
+            case "celsius" -> {
                 startingScale = "Celsius";
-                this.initialScaleInt = initialScaleInt;
-                break;
-            case 2:
+                initialScaleInt = 1;
+            }
+            case "fahrenheit" -> {
                 startingScale = "Fahrenheit";
-                this.initialScaleInt = initialScaleInt;
-                break;
-            default:
+                initialScaleInt = 2;
+            }
+            case "kelvin" -> {
                 startingScale = "Kelvin";
-                this.initialScaleInt = initialScaleInt;
-                break;
+                initialScaleInt = 3;
+            }
+            default -> {
+                System.err.println("Invalid value \"" + initialScale + "\" in TempConversion.setTargetScale(String) not recognized");
+                System.err.flush();
+            }
+        }
+    }
+    public void setTargetScale(String targetScale) {
+        switch(targetScale.toLowerCase()) {
+            case "celsius" -> {
+                this.targetScale = "Celsius";
+                targetScaleInt = 1;
+            }
+            case "fahrenheit" -> {
+                this.targetScale = "Fahrenheit";
+                targetScaleInt = 2;
+            }
+            case "kelvin" -> {
+                this.targetScale = "Kelvin";
+                targetScaleInt = 3;
+            }
+            default -> {
+                System.err.println("Invalid value \"" + targetScale + "\" in TempConversion.setTargetScale(String) not recognized");
+                System.err.flush();
+            }
         }
     }
 
@@ -48,20 +87,12 @@ public class TempConversion {
     }
 
     public void setTargetScale(int targetScaleInt) {
-
+        this.targetScaleInt = targetScaleInt;
         switch(targetScaleInt) {
-            case 1:
-                targetScale = "Celsius";
-                this.targetScaleInt = targetScaleInt;
-                break;
-            case 2:
-                targetScale = "Fahrenheit";
-                this.targetScaleInt = targetScaleInt;
-                break;
-            default:
-                targetScale = "Kelvin";
-                this.targetScaleInt = targetScaleInt;
-                break;
+            case 1 -> targetScale = "Celsius";
+            case 2 -> targetScale = "Fahrenheit";
+            case 3 -> targetScale = "Kelvin";
+            default -> {}
         }
     }
 
@@ -77,9 +108,6 @@ public class TempConversion {
         return convertedTemp;
     }
 
-    public void setConvertedTemp(double convertedTemp) {
-        this.convertedTemp = convertedTemp;
-    }
     private String mainMenu = """
                 
                 [Temperature Conversion Program]
@@ -89,9 +117,6 @@ public class TempConversion {
                 [3]Kelvin
                 [9]Exit
                 """;
-    private int initialScaleInt, targetScaleInt;
-    private double initialTemp, convertedTemp;
-
     public String getMainMenu() {
         return mainMenu;
     }
@@ -120,6 +145,30 @@ public class TempConversion {
                 convertedTemperature = startTemperature - 273.15; //to celsius
             } else {
                 convertedTemperature = (startTemperature - 273.15) / (5 / 9.0) + 32; //to fahrenheit
+            }
+        }
+        this.convertedTemp = convertedTemperature;
+        return convertedTemperature;
+    }
+    public double convertStored() { //to be called with validated start and target values 1, 2, and 3.
+        double convertedTemperature;
+        if (getInitialScaleInt() == 1) {//celsius starting temp
+            if (getTargetScaleInt() == 2) {
+                convertedTemperature = getInitialTemp() * 9.0 / 5.0 + 32; //to fahrenheit
+            } else {
+                convertedTemperature = getInitialTemp() + 273.15; //to kelvin
+            }
+        } else if (getInitialScaleInt() == 2) { //fahrenheit starting temp
+            if (getTargetScaleInt() == 1) {
+                convertedTemperature = (getInitialTemp() - 32) * (5 / 9.0); //to celsius
+            } else {
+                convertedTemperature = (getInitialTemp() - 32) * (5 / 9.0) + 273.15; //to kelvin
+            }
+        } else {//kelvin starting temp
+            if (getTargetScaleInt() == 1) {
+                convertedTemperature = getInitialTemp() - 273.15; //to celsius
+            } else {
+                convertedTemperature = (getInitialTemp() - 273.15) / (5 / 9.0) + 32; //to fahrenheit
             }
         }
         this.convertedTemp = convertedTemperature;

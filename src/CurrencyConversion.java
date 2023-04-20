@@ -3,7 +3,7 @@ public class CurrencyConversion {
     private String startingCurrency, targetCurrency;
     private int choice;
     private double startAmount;
-    private final double EXCHANGE_RATE_EUR2USD = 1.0978, EXCHANGE_RATE_USD2EUR = 0.9100;
+    private static final double EXCHANGE_RATE_EUR2USD = 1.0978, EXCHANGE_RATE_USD2EUR = 0.9100;
 
     public String getStartingCurrency() {
         return startingCurrency;
@@ -51,6 +51,24 @@ public class CurrencyConversion {
                 this.targetCurrency = "USD";
                 break;
             case 2:
+                this.startingCurrency = "USD";
+                this.targetCurrency = "EUR";
+                break;
+        }
+    }
+    public void setStartingChoice(String choice) {
+        switch(choice.toLowerCase()) {
+            case "euro":
+            case "euros":
+            case "EUR":
+                this.startingCurrency = "EUR";
+                this.targetCurrency = "USD";
+                this.choice = 1;
+                break;
+            case "dollar":
+            case "dollars":
+            case "usd":
+                this.choice = 2;
                 this.startingCurrency = "USD";
                 this.targetCurrency = "EUR";
                 break;

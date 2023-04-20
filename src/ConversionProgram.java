@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class ConversionProgram {
+
+
     public static void main(String[] args) {
         boolean stayInMenu = true;
         int menuChoice;
@@ -8,58 +10,54 @@ public class ConversionProgram {
             System.out.println(getMainMenu());
             menuChoice = getMenuChoice(1, 3, 9, "Choose a conversion type [9 to exit]: ");
             switch (menuChoice) {
-                case 1:
-                    handleCaseTempConversion();
-                    break;
-                case 2:
-                    handleCaseCurrConversion();
-                    break;
-                case 3:
-                    handleCaseWeightConversion();
-                    break;
-                case 9:
-                    stayInMenu = false;
-                    break;
+                case 1 -> handleCaseTempConversion();
+                case 2 -> handleCaseCurrConversion();
+                case 3 -> handleCaseWeightConversion();
+                case 9 -> stayInMenu = false;
             }
         } while (stayInMenu);
         System.out.println("Shutting down...");
     }
 
+
+
     public static void handleCaseWeightConversion() {
-        do{
-            WeightConversion wc1 = new WeightConversion();
+        WeightConversion wc1 = new WeightConversion();
+        do {
             System.out.println(wc1.getMenu());
-            int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
-            if (choice == 9) {break;}
+            int choice = getMenuChoice(1, 2, 9, "Choose an option [9 to exit]: ");
+            if (choice == 9) {
+                break;
+            }
             double initialValue = getDoubleAny("Please enter amount: ");
             if (choice == 1) {
-                System.out.printf("%.2f kilograms is equal to %.2f pounds.",initialValue,wc1.convert(choice,initialValue));
+                System.out.printf("%.2f kilograms is equal to %.2f pounds.", initialValue, wc1.convert(choice, initialValue));
+            } else {
+                System.out.printf("%.2f pounds is equal to %.2f kilograms.", initialValue, wc1.convert(choice, initialValue));
             }
-            else {
-                System.out.printf("%.2f pounds is equal to %.2f kilograms.",initialValue,wc1.convert(choice,initialValue));
-            }
-        }while(userStays());
+        } while (userStays());
     }
 
     public static void handleCaseCurrConversion() {
+        CurrencyConversion cc1 = new CurrencyConversion();
         do {
-            CurrencyConversion cc1 = new CurrencyConversion();
             System.out.println(cc1.getMenu());
-            int choice = getMenuChoice(1,2,9, "Choose an option [9 to exit]: ");
-            if (choice == 9) {break;}
+            int choice = getMenuChoice(1, 2, 9, "Choose an option [9 to exit]: ");
+            if (choice == 9) {
+                break;
+            }
             double initialValue = getDoubleAny("Please enter amount: ");
             if (choice == 1) {
-                System.out.printf("%.4f EUR is equal to %.4f USD at the exchange rate of %.4f.",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_EUR2USD());
+                System.out.printf("%.4f EUR is equal to %.4f USD at the exchange rate of %.4f.", initialValue, cc1.convert(choice, initialValue), cc1.getEXCHANGE_RATE_EUR2USD());
+            } else {
+                System.out.printf("%.4f USD is equal to %.4f EUR at the exchange rate of %.4f.", initialValue, cc1.convert(choice, initialValue), cc1.getEXCHANGE_RATE_USD2EUR());
             }
-            else {
-                System.out.printf("%.4f USD is equal to %.4f EUR at the exchange rate of %.4f.",initialValue,cc1.convert(choice,initialValue),cc1.getEXCHANGE_RATE_USD2EUR());
-            }
-        }while (userStays());
+        } while (userStays());
     }
 
     public static void handleCaseTempConversion() {
+        TempConversion tc1 = new TempConversion();
         do {
-            TempConversion tc1 = new TempConversion();
             System.out.print(tc1.getMainMenu());
             tc1.setInitialScale(getMenuChoice(1, 3, 9, "Starting temperature scale [9 to exit]: "));
             if (tc1.getInitialScaleInt() == 9) {

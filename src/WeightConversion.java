@@ -14,6 +14,10 @@ public class WeightConversion {
         this.startingWeight = startingWeight;
         this.convertedWeight = convertStored();
     }
+    public String toString() {
+        return "The starting scale int is " + choice + " which corresponds to " + startingScale + " and the target conversion scale is " + targetScale
+                + ". The starting weight is set to " + startingWeight + " and the stored conversion is " + convertedWeight + ".";
+    }
     public String getStartingScale() {
         return startingScale;
     }
