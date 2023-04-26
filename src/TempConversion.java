@@ -56,8 +56,7 @@ public class TempConversion {
                 initialScaleInt = 3;
             }
             default -> {
-                System.err.println("Invalid value \"" + initialScale + "\" in TempConversion.setTargetScale(String) not recognized");
-                System.err.flush();
+                throw new IllegalArgumentException("Invalid choice \"" + initialScale + "\" in String initialScale");
             }
         }
     }
@@ -76,8 +75,7 @@ public class TempConversion {
                 targetScaleInt = 3;
             }
             default -> {
-                System.err.println("Invalid value \"" + targetScale + "\" in TempConversion.setTargetScale(String) not recognized");
-                System.err.flush();
+                throw new IllegalArgumentException("Invalid choice \"" + targetScale + "\" in targetScale");
             }
         }
     }
@@ -108,7 +106,7 @@ public class TempConversion {
         return convertedTemp;
     }
 
-    private String mainMenu = """
+    private static String mainMenu = """
                 
                 [Temperature Conversion Program]
                            

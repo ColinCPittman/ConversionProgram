@@ -13,13 +13,14 @@ public class Test_Conversion_Program {
         TempConversion tc2 = new TempConversion();
         tc2.setInitialScale("FAHRENHEIT");
         System.out.println(tc2);
-        tc2.setTargetScale("sour");
+        //tc2.setTargetScale("sour");
         System.out.println(tc2);
         tc2.setTargetScale("celsius");
-        tc2.setInitialTemp(69.42);
+        tc2.setInitialTemp(70.43);
         System.out.println(tc2);
         tc2.convertStored();
         System.out.println(tc2);
+        //DistanceConversion dc = new DistanceConversion(0,5,20);
 
     }
 }

@@ -1,0 +1,226 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "ConversionProgram",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_1060762062 { 
+   	label=WeightConversion
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   WeightConversion1060762062[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)WeightConversion</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   choice: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   convertedWeight: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startingScale: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startingWeight: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetScale: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ convert(choice: int, weight: double): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ convertStored(): double</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1448170457 { 
+   	label=CurrencyConversion
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   CurrencyConversion1448170457[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)CurrencyConversion</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   choice: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   convertedAmount: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startAmount: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startingCurrency: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetCurrency: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ convert(choice: int, money: double): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ convertStored(): double</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1849395158 { 
+   	label=TempConversion
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   TempConversion1849395158[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)TempConversion</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   convertedTemp: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   initialScaleInt: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   initialTemp: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startingScale: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetScale: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetScaleInt: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ convertStored(): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ convertTemperature(startScale: int, targetScale: int, startTemperature: double): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuAfterChoice(choice: int): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_2081746030 { 
+   	label=ConversionProgram
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   ConversionProgram2081746030[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ConversionProgram</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getDoubleAny(choicePrompt: String): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuChoice(lowValue: int, highValue: int, exitValue: int, choicePrompt: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuChoice(lowValue: int, highValue: int, exitValue: int, choicePrompt: String, firstChoice: int): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNonNegativeDouble(choicePrompt: String): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleCaseCurrConversion()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleCaseDistConversion()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleCaseTempConversion()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ handleCaseWeightConversion()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ main(args: String[])</TD></TR>
+<TR><TD ALIGN="LEFT" >+ userStays(): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_306035467 { 
+   	label=DistanceConversion
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   DistanceConversion306035467[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DistanceConversion</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   convertedDist: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startDist: double [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startMeasurement: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startMeasurementInt: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetMeasurement: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   targetMeasurementInt: int [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ convert(startingMeasurement: int, targetMeasurement: int, startDist: double): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ convertStored(): double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getMenuAfterChoice(choice: int): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+'edges    
+
+    
+}
+@enduml

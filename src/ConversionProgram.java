@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConversionProgram {
@@ -8,18 +9,52 @@ public class ConversionProgram {
         int menuChoice;
         do {
             System.out.println(getMainMenu());
-            menuChoice = getMenuChoice(1, 3, 9, "Choose a conversion type [9 to exit]: ");
+            menuChoice = getMenuChoice(1, 4, 9, "Choose a conversion type [9 to exit]: ");
             switch (menuChoice) {
                 case 1 -> handleCaseTempConversion();
                 case 2 -> handleCaseCurrConversion();
                 case 3 -> handleCaseWeightConversion();
+                case 4 -> handleCaseDistConversion();
                 case 9 -> stayInMenu = false;
             }
         } while (stayInMenu);
         System.out.println("Shutting down...");
     }
 
+    public static void handleCaseDistConversion() {
+        DistanceConversion dc = new DistanceConversion();
+        do {
+            System.out.println(dc.getMenu());
+            dc.setStartMeasurementInt(getMenuChoice(1,8,9,"Choose starting measurement[9 to exit]: "));
+            if(dc.getStartMeasurementInt() == 9) {break;}
+            else {
+                System.out.println(dc.getMenuAfterChoice(dc.getStartMeasurementInt()));
+                dc.setTargetMeasurementInt(getMenuChoice(1,8,9,"Convert from " + dc.getStartMeasurement() + " into: ", dc.getStartMeasurementInt()));
+                if (dc.getTargetMeasurementInt() == 9) { break;}
+                dc.setStartDist(getNonNegativeDouble("Enter starting distance [" + dc.getStartMeasurement() + "]: "));
+                System.out.printf("%.6g " + dc.getStartMeasurement() + " is equal to %.6g " + dc.getTargetMeasurement() + ".", dc.getStartDist(), dc.convertStored()); //this should be made to output only the relevant digits, I don't like how it shows irrelevant zeros. I need to research best practices before approaching.
+            }
 
+        } while (userStays());
+    }
+    public static void handleCaseTempConversion() {
+        TempConversion tc1 = new TempConversion();
+        do {
+            System.out.print(tc1.getMainMenu());
+            tc1.setInitialScale(getMenuChoice(1, 3, 9, "Starting temperature scale [9 to exit]: "));
+            if (tc1.getInitialScaleInt() == 9) {
+                break;
+            } else {
+                System.out.print(tc1.getMenuAfterChoice(tc1.getInitialScaleInt()));
+                tc1.setTargetScale(getMenuChoice(1, 3, 9, "Converting from " + tc1.getStartingScale() + " into: ", tc1.getInitialScaleInt()));
+                if (tc1.getTargetScaleInt() == 9) {
+                    break;
+                }
+                tc1.setInitialTemp(getDoubleAny("Enter starting temperature[" + tc1.getStartingScale() + "]: "));
+                System.out.printf("%.2f degrees " + tc1.getStartingScale() + " is equal to %.2f degrees " + tc1.getTargetScale() + ".", tc1.getInitialTemp(), tc1.convertStored());
+            }
+        } while (userStays());
+    }
 
     public static void handleCaseWeightConversion() {
         WeightConversion wc1 = new WeightConversion();
@@ -55,25 +90,6 @@ public class ConversionProgram {
         } while (userStays());
     }
 
-    public static void handleCaseTempConversion() {
-        TempConversion tc1 = new TempConversion();
-        do {
-            System.out.print(tc1.getMainMenu());
-            tc1.setInitialScale(getMenuChoice(1, 3, 9, "Starting temperature scale [9 to exit]: "));
-            if (tc1.getInitialScaleInt() == 9) {
-                break;
-            } else {
-                System.out.print(tc1.getMenuAfterChoice(tc1.getInitialScaleInt()));
-                tc1.setTargetScale(getMenuChoice(1, 3, 9, "Converting from " + tc1.getStartingScale() + " into: ", tc1.getInitialScaleInt()));
-                if (tc1.getTargetScaleInt() == 9) {
-                    break;
-                }
-                tc1.setInitialTemp(getDoubleAny("Enter starting temperature[" + tc1.getStartingScale() + "]: "));
-                System.out.printf("%.2f degrees " + tc1.getStartingScale() + " is equal to %.2f degrees " + tc1.getTargetScale() + ".", tc1.getInitialTemp(), tc1.convertTemperature(tc1.getInitialScaleInt(), tc1.getTargetScaleInt(), tc1.getInitialTemp()));
-            }
-        } while (userStays());
-    }
-
     public static boolean userStays() {
         Scanner sc = new Scanner(System.in);
         System.out.print("\nWould you like to do another conversion? [Y/N]:");
@@ -97,6 +113,7 @@ public class ConversionProgram {
                 [1]Temperature Conversion
                 [2]Currency Conversion
                 [3]Weight Conversion
+                [4]Distance Conversion
                 [9]Exit
                 """;
     }
@@ -112,7 +129,7 @@ public class ConversionProgram {
             try {
                 value = Double.parseDouble(input);
                 break;
-            } catch (Exception err) {
+            } catch (InputMismatchException err) {
                 System.out.println("Invalid input. Please enter a number.");
             }
         }
@@ -135,7 +152,7 @@ public class ConversionProgram {
                     continue;
                 }
                 break;
-            } catch (Exception err) {
+            } catch (InputMismatchException err) {
                 System.out.println("Invalid input. Please enter a number.");
             }
         }
@@ -156,7 +173,7 @@ public class ConversionProgram {
                 if (!(lowValue <= y && y <= highValue) && y != exitValue) {
                     gotError = true;
                 }
-            } catch (Exception err) {
+            } catch (InputMismatchException err) {
                 gotError = true;
                 sc.nextLine();
             }
@@ -180,7 +197,7 @@ public class ConversionProgram {
                 if ((!(lowValue <= y && y <= highValue) && y != exitValue) || y == firstChoice) {
                     gotError = true;
                 }
-            } catch (Exception err) {
+            } catch (InputMismatchException err) {
                 gotError = true;
                 sc.nextLine();
             }
