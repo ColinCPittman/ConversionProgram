@@ -4,9 +4,3 @@ A Java command-line tool for multi-unit conversions. This was an independent pro
 - Supports Temperature, Currency, Weight, and Distance.
 - Employs a 2D conversion matrix for instant distance scaling between eight different units.
 - Includes  validation to prevent invalid numeric entries and redundant unit selections.
-
-## Usage
-Compile and run from the source directory:
-```bash
-javac src/*.java
-java src/ConversionProgram
