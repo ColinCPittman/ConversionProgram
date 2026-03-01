@@ -1,4 +1,4 @@
-A Java command-line tool for multi-unit conversions. This was an independent project done during my free time during my first semester of college to get more aquanted with Java and coding. 
+A Java command-line tool for multi-unit conversions. This was an independent project done during my free time during my first semester of college to get more acquainted with Java and coding. 
 
 ## Features
 - Supports Temperature, Currency, Weight, and Distance.
